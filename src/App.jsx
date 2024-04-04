@@ -5,7 +5,7 @@ export const App = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const apiUrl = "http://localhost:3111";
-    const [access, setAccess] = useState(true);
+    const [access, setAccess] = useState(false);
 
     const userInput = (event) => {
         const newUser = event.target.value;
