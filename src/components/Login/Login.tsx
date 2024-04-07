@@ -1,13 +1,14 @@
-import { register } from 'module';
+import { Register } from '../Register/Register';
 import React from 'react';
 import { useState } from 'react';
+import axios from 'axios';
 
 export const Login = ({setCurrentPage}) => {
     const apiUrl = "http://localhost:3000";
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-     const userInput = (event) => {
+    const userInput = (event) => {
         const newUser = event.target.value;
         setUserName(newUser);
     }
@@ -15,6 +16,23 @@ export const Login = ({setCurrentPage}) => {
         const newPassword = event.target.value;
         setPassword(newPassword);
     }
+
+    const login = async (e) => {
+      e.preventDefault();
+    const credential = {
+      username : userName,
+      password : password
+    }  
+    let res = await axios.post(apiUrl+"/login",credential);
+    
+    if(res.data.message === "User found") {
+      alert('You loged in succesfully');
+      setCurrentPage("home");
+    } else if(res.data.message === "Wrong credentials") {
+      alert("Your username or password isn't right");
+      return;
+    }
+  }
 
   return (
     <div>
@@ -34,8 +52,9 @@ export const Login = ({setCurrentPage}) => {
              </label>   
          </div>
          <div className="flex">
-            <button className="submit" onClick={() => {setCurrentPage("home")}}>Log in</button>
+            <button className="submit" onClick={(e) => {login(e)}}>Log in</button>
          </div>
+         <div></div>
          <div className="flex">
             <button className="submit" onClick={() => {setCurrentPage("register")}}>Register</button>
          </div>
