@@ -3,7 +3,6 @@ import { useState } from 'react';
 import axios from 'axios';
 
 export const Register = ({setCurrentPage}) => {
-    // da li mogu da se uvezu kao setcurrent i kako?
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const apiUrl = "http://localhost:3000";
