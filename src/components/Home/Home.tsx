@@ -7,4 +7,5 @@ export const Home = ({setCurrentPage}) => {
         <button onClick={() => (setCurrentPage("login"))} >Log out</button>
     </div>
   )
-}
+} 
+

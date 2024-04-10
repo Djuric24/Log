@@ -19,12 +19,11 @@ export const Login = ({setCurrentPage}) => {
 
     const login = async (e) => {
       e.preventDefault();
-    const credential = {
+    const credentials = {
       username : userName,
       password : password
     }  
-    let res = await axios.post(apiUrl+"/login",credential);
-    
+    let res = await axios.post(apiUrl+"/login",credentials);
     if(res.data.message === "User found") {
       alert('You loged in succesfully');
       setCurrentPage("home");
