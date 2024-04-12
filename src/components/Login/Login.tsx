@@ -1,9 +1,8 @@
-import { Register } from '../Register/Register';
 import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 
-export const Login = ({setCurrentPage}) => {
+export const Login = ({setCurrentPage, setCurrentUser}) => {
     const apiUrl = "http://localhost:3000";
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
@@ -25,6 +24,7 @@ export const Login = ({setCurrentPage}) => {
     }  
     let res = await axios.post(apiUrl+"/login",credentials);
     if(res.data.message === "User found") {
+      setCurrentUser(res.data);
       alert('You loged in succesfully');
       setCurrentPage("home");
     } else if(res.data.message === "Wrong credentials") {
