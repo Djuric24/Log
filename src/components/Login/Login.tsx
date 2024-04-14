@@ -22,7 +22,13 @@ export const Login = ({setCurrentPage, setCurrentUser}) => {
       username : userName,
       password : password
     }  
+    if(!userName || !password) {
+      alert("Username or password can't be empty")
+      return;
+    }
+
     let res = await axios.post(apiUrl+"/login",credentials);
+    console.log("response" ,res);
     if(res.data.message === "User found") {
       setCurrentUser(res.data);
       alert('You loged in succesfully');
