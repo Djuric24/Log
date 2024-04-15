@@ -17,19 +17,15 @@ export const Home = ({setCurrentPage, currentUser}) => {
      let newTodo = {
      text : text,
      id : currentUser.userId,
-     //neide nikakav id osim onaj koji smo dobili kad smo se ulogovali
     }
 
     console.log("novi todo koji saljem na bekend",newTodo)
      let todo = await axios.post(apiUrl+"/createtodo",newTodo);
     console.log("response" ,todo.data);
-      //zadatak ce biti da postavis podatke sa bekenda da budu tretni podaci(currentuser)
+      //podatke sa bekenda da budu tretni podaci(currentuser)
         setText('');
         // alert('You created new Todo');
 
-      // onclick da posalje axios.post(...,newTodo) 
-      // u new todo da bude id od korisnika i text
-      // {id:"Weq",text:"novi todo"}
       console.log('clicked');
     
   }
