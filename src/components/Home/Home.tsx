@@ -25,13 +25,12 @@ export const Home = ({setCurrentPage, currentUser}) => {
       //podatke sa bekenda da budu tretni podaci(currentuser)
         setText('');
         // alert('You created new Todo');
-
       console.log('clicked');
     
   }
   const deleteTodo = () => {
     console.log('delete');
-    
+  
   }
   return (
     <>
