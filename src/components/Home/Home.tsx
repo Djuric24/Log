@@ -30,7 +30,6 @@ export const Home = ({setCurrentPage, currentUser}) => {
   }
   const deleteTodo = () => {
     console.log('delete');
-  
   }
   return (
     <>
