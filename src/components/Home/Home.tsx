@@ -21,7 +21,7 @@ export const Home = ({setCurrentPage, currentUser}) => {
 
     console.log("novi todo koji saljem na bekend",newTodo)
      let todo = await axios.post(apiUrl+"/createtodo",newTodo);
-    console.log("response" ,todo.data);
+    console.log("response" ,todo.data.data.data.todos);
       //podatke sa bekenda da budu tretni podaci(currentuser)
         setText('');
         // alert('You created new Todo');
