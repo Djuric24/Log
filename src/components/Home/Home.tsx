@@ -14,22 +14,28 @@ export const Home = ({setCurrentPage, currentUser}) => {
 // poslati id od todoa koji kliknes , (ne userid)
 
   const handleAddTodo = async () => {
+    //ubaciti ako nema text da neuradi nista
      let newTodo = {
      text : text,
      id : currentUser.userId,
     }
+    if(!text) {
+      alert('Write your todo')
+      return;
+    }
 
     console.log("novi todo koji saljem na bekend",newTodo)
      let todo = await axios.post(apiUrl+"/createtodo",newTodo);
-    console.log("response" ,todo.data.data.data.todos);
+    // console.log("response" ,todo.data.data.data.todos);
       //podatke sa bekenda da budu tretni podaci(currentuser)
         setText('');
         // alert('You created new Todo');
       console.log('clicked');
     
   }
-  const deleteTodo = () => {
-    console.log('delete');
+  const deleteTodo = async (id) => {
+     await axios.post(apiUrl+"/deletetodo",{id : id});
+    console.log(id);
   }
   return (
     <>
@@ -45,7 +51,7 @@ export const Home = ({setCurrentPage, currentUser}) => {
         return (
           <div className='singletodo' key={todo.id}>
             <p>- {todo.text}</p>
-            <button className='deleteTodo' onClick={deleteTodo}>Delete</button>
+            <button className='deleteTodo' onClick={() => deleteTodo(todo.id)}>Delete</button>
           </div>
         )
       })}

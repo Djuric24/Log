@@ -31,7 +31,7 @@ export const Login = ({setCurrentPage, setCurrentUser}) => {
     console.log("response" ,res);
     if(res.data.message === "User found") {
       setCurrentUser(res.data);
-      alert('You loged in succesfully');
+      // alert('You loged in succesfully');
       setCurrentPage("home");
     } else if(res.data.message === "Wrong credentials") {
       alert("Your username or password isn't right");
