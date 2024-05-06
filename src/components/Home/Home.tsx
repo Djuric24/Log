@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export const Home = ({setCurrentPage, currentUser}) => {
+export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
       const apiUrl = "http://localhost:3000";
       const [text, setText] = useState('');
       const [customerId, setCustomerId] = useState('');
@@ -26,15 +26,20 @@ export const Home = ({setCurrentPage, currentUser}) => {
 
     console.log("novi todo koji saljem na bekend",newTodo)
      let todo = await axios.post(apiUrl+"/createtodo",newTodo);
-    // console.log("response" ,todo.data.data.data.todos);
-      //podatke sa bekenda da budu tretni podaci(currentuser)
         setText('');
-        // alert('You created new Todo');
       console.log('clicked');
+       setCurrentUser(prevUser => ({
+    ...prevUser,
+    todos: [...prevUser.todos, newTodo]
+  }));
     
   }
   const deleteTodo = async (id) => {
      await axios.post(apiUrl+"/deletetodo",{id : id});
+       setCurrentUser(prevUser => ({
+    ...prevUser,
+    todos: prevUser.todos.filter(todo => todo.id !== id)
+  }));
     console.log(id);
   }
   return (

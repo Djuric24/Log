@@ -14,7 +14,7 @@ if(currentPage === "register") {
     return <Register setCurrentPage={setCurrentPage} ></Register>
 }
 if(currentPage === "home") {
-    return <Home setCurrentPage={setCurrentPage} currentUser={currentUser}></Home>
+    return <Home setCurrentPage={setCurrentPage} currentUser={currentUser} setCurrentUser={setCurrentUser}></Home>
 }
 }
 
