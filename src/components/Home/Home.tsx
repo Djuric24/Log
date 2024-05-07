@@ -21,17 +21,18 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
       alert('Write your todo')
       return;
     }
-
-    console.log("novi todo koji saljem na bekend",newTodo)
-     let todo = await axios.post(apiUrl+"/createtodo",newTodo);
-        setText('');
-      console.log(newTodo);
-       setCurrentUser(prev => ({
+    //setCurrent da stavi da su todos = updatedtodos, ne samo =.
+    // KAKO JE MOGUCE DA POVECAVA BR GRESAKA PRILIOM BRISANJA SLOVA?
+     let res = await axios.post(apiUrl+"/createtodo",newTodo);
+      let updatedTodos = res.data.user.Todos;
+      console.log(updatedTodos);
+       setText('');
+       //da todos bude updatedtodos
+       setCurrentUser((prev) => ({
     ...prev,
-    todos: [...prev.todos, newTodo]    
+    todos: updatedTodos
   }));
-    console.log('skroz dole', newTodo);
-    
+ 
   }
   const deleteTodo = async (id) => {
      await axios.post(apiUrl+"/deletetodo",{id : id});

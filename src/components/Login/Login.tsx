@@ -28,7 +28,7 @@ export const Login = ({setCurrentPage, setCurrentUser}) => {
     }
 
     let res = await axios.post(apiUrl+"/login",credentials);
-    console.log("response" ,res);
+    // console.log("login response" ,res);
     if(res.data.message === "User found") {
       setCurrentUser(res.data);
       // alert('You loged in succesfully');
@@ -47,7 +47,7 @@ export const Login = ({setCurrentPage, setCurrentUser}) => {
          <div className="flex">
          <label>
          <input className="input" value={userName} onChange={userInput} type="text" placeholder="" />
-             <span>Firstname</span>
+             <span>Username</span>
          </label>
          </div>  
          <div className="flex">
