@@ -10,11 +10,9 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
         const newText = e.target.value;
         setText(newText);
       }
-//delete todo
-// poslati id od todoa koji kliknes , (ne userid)
+
 
   const handleAddTodo = async () => {
-    //ubaciti ako nema text da neuradi nista
      let newTodo = {
      text : text,
      id : currentUser.userId,
@@ -27,20 +25,20 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
     console.log("novi todo koji saljem na bekend",newTodo)
      let todo = await axios.post(apiUrl+"/createtodo",newTodo);
         setText('');
-      console.log('clicked');
-       setCurrentUser(prevUser => ({
-    ...prevUser,
-    todos: [...prevUser.todos, newTodo]
+      console.log(newTodo);
+       setCurrentUser(prev => ({
+    ...prev,
+    todos: [...prev.todos, newTodo]    
   }));
+    console.log('skroz dole', newTodo);
     
   }
   const deleteTodo = async (id) => {
      await axios.post(apiUrl+"/deletetodo",{id : id});
-       setCurrentUser(prevUser => ({
-    ...prevUser,
-    todos: prevUser.todos.filter(todo => todo.id !== id)
+       setCurrentUser(prev => ({
+    ...prev,
+    todos: prev.todos.filter(todo => todo.id !== id)
   }));
-    console.log(id);
   }
   return (
     <>
