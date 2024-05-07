@@ -11,7 +11,6 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
         setText(newText);
       }
 
-
   const handleAddTodo = async () => {
      let newTodo = {
      text : text,
@@ -21,13 +20,10 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
       alert('Write your todo')
       return;
     }
-    //setCurrent da stavi da su todos = updatedtodos, ne samo =.
-    // KAKO JE MOGUCE DA POVECAVA BR GRESAKA PRILIOM BRISANJA SLOVA?
      let res = await axios.post(apiUrl+"/createtodo",newTodo);
       let updatedTodos = res.data.user.Todos;
       console.log(updatedTodos);
        setText('');
-       //da todos bude updatedtodos
        setCurrentUser((prev) => ({
     ...prev,
     todos: updatedTodos
