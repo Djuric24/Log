@@ -37,11 +37,23 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
     todos: prev.todos.filter(todo => todo.id !== id)
   }));
   }
+  const editTodo = async (id, newText) => {
+    const res = await axios.post(apiUrl+"/edittodo",{id, text : newText});
+    let editedTodo = res.data.todo;
+    console.log(editedTodo);
+
+  //   const editItem = (id) => {
+  // const specificItem = list.find((item)=> item.id === id);
+  // setIsEditing(true);
+  // setEditID(id);
+  // setName(specificItem.title);
+  
+  }
   return (
     <>
      <div className='navbar'>
       <h4>Welcome: {currentUser.username} </h4>
-      <button onClick={() => (setCurrentPage("login"))}>Log out</button>
+      <button onClick={() => {setCurrentPage("login");setCurrentUser(null)}}>Log out</button>
      </div>
 
     <div className='home'>
@@ -52,6 +64,7 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
           <div className='singletodo' key={todo.id}>
             <p>- {todo.text}</p>
             <button className='deleteTodo' onClick={() => deleteTodo(todo.id)}>Delete</button>
+             <button className='deleteTodo' onClick={()=> editTodo(todo.id)}>Edit</button>
           </div>
         )
       })}

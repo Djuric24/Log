@@ -28,12 +28,10 @@ export const Login = ({setCurrentPage, setCurrentUser}) => {
     }
 
     let res = await axios.post(apiUrl+"/login",credentials);
-    // console.log("login response" ,res);
     if(res.data.message === "User found") {
       setCurrentUser(res.data);
-      // alert('You loged in succesfully');
       setCurrentPage("home");
-    } else if(res.data.message === "Wrong credentials") {
+     } else if(res.data.message === "Wrong credentials") {
       alert("Your username or password isn't right");
       return;
     }
