@@ -5,6 +5,8 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
       const apiUrl = "http://localhost:3000";
       const [text, setText] = useState('');
       const [customerId, setCustomerId] = useState('');
+      const [isEditing, setIsEditing] = useState(false);
+      const [editID, setEditID] = useState(null);
 
       const handleTextChange = (e) => {
         const newText = e.target.value;
@@ -24,6 +26,7 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
       let updatedTodos = res.data.user.Todos;
       console.log(updatedTodos);
        setText('');
+       setIsEditing(false);
        setCurrentUser((prev) => ({
     ...prev,
     todos: updatedTodos
@@ -41,6 +44,10 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
     const res = await axios.post(apiUrl+"/edittodo",{id, text : newText});
     let editedTodo = res.data.todo;
     console.log(editedTodo);
+    setIsEditing(true);
+    setEditID(id);
+     setText(res.data.todo.title);
+
 
   //   const editItem = (id) => {
   // const specificItem = list.find((item)=> item.id === id);
@@ -70,7 +77,7 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
       })}
       </div>
       <input type="text" onChange={handleTextChange} value={text} className='inputTodo' placeholder='Enter new todo' />
-      <button onClick={handleAddTodo}>Add todo</button>
+      <button onClick={handleAddTodo}>{isEditing? 'edit' : 'submit'}</button>
     </div>
     </>
   )
