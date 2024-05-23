@@ -26,7 +26,6 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
       let updatedTodos = res.data.user.Todos;
       console.log(updatedTodos);
        setText('');
-       setIsEditing(false);
        setCurrentUser((prev) => ({
     ...prev,
     todos: updatedTodos
@@ -42,21 +41,19 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
   }
   const editTodo = async (id, newText) => {
     const res = await axios.post(apiUrl+"/edittodo",{id, text : newText});
-    let editedTodo = res.data.todo;
-    console.log(editedTodo);
-    setIsEditing(true);
-    setEditID(id);
-     setText(res.data.todo.title);
+    let updatedToDo = res.data.todo
+    setText('');
+    setIsEditing(false);
+        setCurrentUser((prev) => ({
+    ...prev,
+    todos: prev.todos.map(todo => {
+      if(todo.id !== updatedToDo.id) return todo
+      else return updatedToDo
+      })
+  }));
+    }
 
-
-  //   const editItem = (id) => {
-  // const specificItem = list.find((item)=> item.id === id);
-  // setIsEditing(true);
-  // setEditID(id);
-  // setName(specificItem.title);
-  
-  }
-  return (
+    return (
     <>
      <div className='navbar'>
       <h4>Welcome: {currentUser.username} </h4>
@@ -71,13 +68,24 @@ export const Home = ({setCurrentPage, currentUser, setCurrentUser}) => {
           <div className='singletodo' key={todo.id}>
             <p>- {todo.text}</p>
             <button className='deleteTodo' onClick={() => deleteTodo(todo.id)}>Delete</button>
-             <button className='deleteTodo' onClick={()=> editTodo(todo.id)}>Edit</button>
+             <button className='deleteTodo' onClick={()=> {
+              setEditID(todo.id);
+              setIsEditing(true);
+              setText(todo.text);
+             }}>Edit</button>
           </div>
         )
       })}
       </div>
       <input type="text" onChange={handleTextChange} value={text} className='inputTodo' placeholder='Enter new todo' />
-      <button onClick={handleAddTodo}>{isEditing? 'edit' : 'submit'}</button>
+      <button onClick={() => {
+        if(isEditing === true){
+        editTodo(editID,text);
+        } else {
+          handleAddTodo()
+        }
+        
+        }}>{isEditing? 'edit' : 'submit'}</button>
     </div>
     </>
   )
